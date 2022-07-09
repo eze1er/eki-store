@@ -13,7 +13,13 @@ import { useStateContext } from "../../context/StateContext";
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd } = useStateContext();
+  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+
+  const handleBuyNow = () => {
+    onAdd(product, qty);
+
+    setShowCart(true);
+  }
 
   return (
     <div>
@@ -74,7 +80,7 @@ const ProductDetails = ({ product, products }) => {
             >
               Add to cart
             </button>
-            <button type="button" className="buy-now" onClick="">
+            <button type="button" className="buy-now" onClick={handleBuyNow}>
               Buy Now
             </button>
           </div>
@@ -99,17 +105,18 @@ export const getStaticPaths = async () => {
     slug {
       current
     }
-  }`;
+  }
+  `;
   const products = await client.fetch(query);
 
   const paths = products.map((product) => ({
     params: {
-      slug: product.slug.current,
-    },
+      slug: product.slug.current
+    }
   }));
   return {
     paths,
-    fallback: "blocking",
+    fallback: "blocking"
   };
 };
 
@@ -121,6 +128,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const products = await client.fetch(productsQuery);
 
   console.log(product);
+  
   return {
     props: { products, product },
   };

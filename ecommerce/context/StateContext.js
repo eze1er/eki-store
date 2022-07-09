@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-// import { children } from "react/cjs/react.development";
+import { children } from "react/cjs/react.development";
 
 const Context = createContext();
 
@@ -95,7 +95,10 @@ export const StateContext = ({ children }) => {
         onAdd,
         setShowCart,
         toggleCartItemQuantity,
-        onRemove
+        onRemove,
+        setCartItems,
+        setTotalPrice,
+        setTotalQuantities
       }}
     >
       {children}
