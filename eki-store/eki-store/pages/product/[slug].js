@@ -11,6 +11,7 @@ import { useStateContext } from "../../context/StateContext";
 
 const ProductDetails = ({ product, products }) => {
   const [index, setIndex] = useState(0);
+  console.log('product = ', product)
   const { image, name, details, price } = product;
   const { incQty, decQty, qty, onAdd } = useStateContext();
 
@@ -104,7 +105,7 @@ export const getStaticPaths = async () => {
 
   const paths = products.map((product) => ({
     params: {
-      slug: product.slug.current,
+      slug: product.slug.current
     },
   }));
 
